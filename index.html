@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardiac Risk Screening Tool</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-frame">
+    <header class="top-header">
+      <div class="header-left">
+        <img src="assets/heartsync-logo.png" alt="HeartSync — Connecting Lives" class="brand-logo">
+      </div>
+      <nav class="header-nav">
+        <a href="#" class="header-nav-link header-nav-link--active">Home</a>
+        <a href="#" class="header-nav-link">Explore</a>
+        <a href="#" class="header-nav-link">Calendar</a>
+        <a href="#" class="header-nav-link">Community</a>
+        <a href="#" class="header-nav-link">More &#9662;</a>
+      </nav>
+      <div class="header-right">
+        <button type="button" class="header-util-btn" id="dark-mode-btn" aria-label="Toggle dark mode" title="Toggle dark mode">&#9790;</button>
+        <button type="button" class="header-util-btn" aria-label="Notifications">&#128276;</button>
+        <button type="button" class="header-util-btn" aria-label="Settings">&#9881;</button>
+        <div class="header-user-block">
+          <span class="header-user-avatar">W</span>
+          <div class="header-user-info">
+            <span class="header-user-name">Will Ray</span>
+            <span class="header-user-email">blockai@gmail.com</span>
+          </div>
+        </div>
+        <button type="button" class="header-cta-btn">Consultation &#8594;</button>
+      </div>
+    </header>
+
+    <section class="greeting-section">
+      <h2 class="greeting-title">Good Morning, Will Ray</h2>
+      <p class="greeting-subtitle">Welcome back to your cardiac screening dashboard.</p>
+    </section>
+
+    <main class="main-content">
+  <div class="app">
+    <div class="dashboard">
+      <aside class="panel-left">
+        <header class="header">
+          <h1 class="title">Cardiac Risk Screening Tool</h1>
+          <p class="description">
+            A prototype tool that estimates sudden cardiac death risk using ECG and echocardiography features.
+          </p>
+        </header>
+
+        <main class="main">
+          <form id="screening-form" class="form" novalidate>
+        <!-- Patient Information -->
+        <section class="form-section">
+          <h2 class="section-title">Patient Information</h2>
+          <div class="field-row">
+            <label class="field-label" for="age">Age</label>
+            <input type="number" id="age" name="age" class="input" min="1" max="120" placeholder="Years" required>
+          </div>
+          <div class="field-row">
+            <label class="field-label" for="sex">Sex</label>
+            <select id="sex" name="sex" class="input select" required>
+              <option value="">Select</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+        </section>
+
+        <!-- ECG Data -->
+        <section class="form-section">
+          <h2 class="section-title">ECG Data</h2>
+          <button type="button" class="btn-sync-ecg" id="btn-sync-ecg">Sync ECG Data</button>
+          <div id="ecg-fields" class="form-fields form-fields--hidden">
+            <div class="field-row">
+              <label class="field-label" for="qt-interval">QT Interval (ms)</label>
+              <input type="number" id="qt-interval" name="qtInterval" class="input" min="0" step="1" placeholder="ms">
+            </div>
+            <div class="field-row">
+              <label class="field-label" for="qrs-voltage">QRS Voltage (mV)</label>
+              <input type="number" id="qrs-voltage" name="qrsVoltage" class="input" min="0" step="0.1" placeholder="mV">
+            </div>
+            <div class="field-row">
+              <label class="field-label" for="st-deviation">ST Segment Deviation (mm)</label>
+              <input type="number" id="st-deviation" name="stDeviation" class="input" step="0.1" placeholder="mm">
+            </div>
+            <div class="field-row">
+              <label class="field-label" for="t-wave">T-Wave Inversion</label>
+              <select id="t-wave" name="tWaveInversion" class="input select">
+                <option value="none">None</option>
+                <option value="mild">Mild</option>
+                <option value="significant">Significant</option>
+              </select>
+            </div>
+            <div class="field-row">
+              <label class="field-label" for="arrhythmia-burden">Arrhythmia Burden (%)</label>
+              <input type="number" id="arrhythmia-burden" name="arrhythmiaBurden" class="input" min="0" max="100" step="0.1" placeholder="%">
+            </div>
+          </div>
+        </section>
+
+        <!-- Echocardiography Data -->
+        <section class="form-section">
+          <h2 class="section-title">Echocardiography Data</h2>
+          <button type="button" class="btn-sync-ecg" id="btn-sync-echo">Sync Echocardiography Data</button>
+          <div id="echo-fields" class="form-fields form-fields--hidden">
+            <div class="field-row">
+              <label class="field-label" for="lv-wall-thickness">LV Wall Thickness (mm)</label>
+              <input type="number" id="lv-wall-thickness" name="lvWallThickness" class="input" min="0" step="0.1" placeholder="mm">
+            </div>
+            <div class="field-row">
+              <label class="field-label" for="lv-ef">LV Ejection Fraction (%)</label>
+              <input type="number" id="lv-ef" name="lvEjectionFraction" class="input" min="0" max="100" step="0.1" placeholder="%">
+            </div>
+            <div class="field-row">
+              <label class="field-label" for="wall-motion">Wall Motion Abnormality</label>
+              <select id="wall-motion" name="wallMotionAbnormality" class="input select">
+                <option value="none">None</option>
+                <option value="mild">Mild</option>
+                <option value="severe">Severe</option>
+              </select>
+            </div>
+            <div class="field-row">
+              <label class="field-label" for="rv-dilation">RV Dilation</label>
+              <select id="rv-dilation" name="rvDilation" class="input select">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+              </select>
+            </div>
+            <div class="field-row">
+              <label class="field-label" for="lvot-gradient">LVOT Gradient (mmHg)</label>
+              <input type="number" id="lvot-gradient" name="lvotGradient" class="input" min="0" step="0.1" placeholder="mmHg">
+            </div>
+          </div>
+        </section>
+
+        <button type="submit" class="btn-analyze" id="btn-analyze">Analyze Risk</button>
+          </form>
+        </main>
+      </aside>
+
+      <div class="panel-right">
+        <section class="graphs-panel" aria-label="Graphs">
+          <h2 class="panel-heading">Graphs</h2>
+          <div id="graphs-container" class="graphs-container">
+            <div class="graph-block graph-block--risk">
+              <h3 class="graph-block-title">Risk</h3>
+              <span id="graph-risk-label" class="risk-score-value">—</span>
+            </div>
+            <div class="graph-block">
+              <h3 class="graph-block-title">ECG Metrics</h3>
+              <div id="graph-ecg" class="graph-bars"></div>
+            </div>
+            <div class="graph-block">
+              <h3 class="graph-block-title">Echo Metrics</h3>
+              <div id="graph-echo" class="graph-bars"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="result-card" class="result-card result-card--hidden" aria-live="polite" aria-label="Risk Assessment">
+          <h2 class="result-title">Risk Assessment</h2>
+          <div class="result-grid">
+            <div class="result-item">
+              <span class="result-label">Risk Level</span>
+              <span id="result-level" class="result-value result-value--level">—</span>
+            </div>
+            <div class="result-item result-item--full">
+              <span class="result-label">Possible Condition</span>
+              <span id="result-condition" class="result-value">—</span>
+            </div>
+            <div class="result-item result-item--full">
+              <span class="result-label">Recommendation</span>
+              <span id="result-recommendation" class="result-value">—</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>Prototype for healthcare hackathon — not for clinical use.</p>
+    </footer>
+  </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
