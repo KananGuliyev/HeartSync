@@ -151,7 +151,7 @@
     strokeVolume:    { mu: 75, sigma: 15 }    // doc: SV = EDV - ESV; normal ~60–100 mL/beat, µ≈75, σ≈15
   };
 
-  var Z_ABNORMAL = 2; // |Z| >= 2 → abnormal (positive)
+  var Z_ABNORMAL = 1; // |Z| >= 1 → abnormal (positive)
 
   // Research-backed risk thresholds (document)
   var RISK = {
@@ -240,7 +240,7 @@
       }
     }
 
-    // Outcome: Positive if any |Z| >= 2, else Negative (formula-based)
+    // Outcome: Positive if any |Z| >= 1, else Negative (formula-based)
     var level = abnormal.length > 0 ? 'High' : 'Low';
     var score = abnormal.length > 0 ? Math.min(100, 50 + abnormal.length * 15) : Math.max(0, 25 - Object.keys(zScores).length);
 
